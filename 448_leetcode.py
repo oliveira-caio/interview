@@ -50,7 +50,7 @@ class Solution:
 
         for n in nums:
             self.setbit(n, bits)
-        
+
         for i in range(1, len(nums) + 1):
             if self.getbit(i, bits):
                 res.append(i)

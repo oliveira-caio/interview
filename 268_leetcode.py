@@ -46,14 +46,14 @@ class Solution:
     def setbit(self, n, bits):
         index = n >> 5
         bits[index] |= (1 << (n % 32))
-        
+
     def getbit(self, n, bits):
         index = n >> 5
         return (bits[index] & (1 << (n % 32))) == 0
-    
+
     def missingNumber(self, nums: List[int]) -> int:
         bits = [0 for _ in range(1 + (len(nums) >> 5))]
-        
+
         for n in nums:
             self.setbit(n, bits)
 

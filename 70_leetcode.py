@@ -29,11 +29,11 @@ class Solution:
     def climbStairs(self, n: int) -> int:
         num_ways = [0 for _ in range(n + 2)]
         num_ways[0] = 1
-        
+
         for i in range(n):
             num_ways[i + 1] += num_ways[i]
             num_ways[i + 2] += num_ways[i]
-        
+
         return num_ways[-2]
 
 

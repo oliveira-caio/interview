@@ -37,4 +37,7 @@ class Solution:
             res = max(res, max_at)
         return res
 
-# the follow up can be found in programming pearls, page 79.
+# the follow up can be found in programming pearls, page 79. the solution is
+# O(nlog(n)), so i won't bother, but the idea is to divide the vector in half
+# recursively and then find a way to concatenate the maximum subarray of
+# both halves. this concatenation is the tricky part.

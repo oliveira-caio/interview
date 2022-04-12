@@ -1,4 +1,5 @@
-"""
+"""303. Range Sum Query Immutable
+
 link: https://leetcode.com/problems/range-sum-query-immutable/
 
 problem: Given an integer array nums, handle multiple queries of the following

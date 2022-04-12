@@ -1,4 +1,5 @@
-"""
+"""704. Binary Search
+
 link: https://leetcode.com/problems/binary-search/
 
 problem: Given an array of integers nums which is sorted in ascending order,

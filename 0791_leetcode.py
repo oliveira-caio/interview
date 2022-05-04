@@ -58,3 +58,36 @@ class Solution:
             equal = ''.join(equal)
             return mergesort(less) + equal + mergesort(greater)
         return mergesort(s)
+
+
+class Solution:
+    def customSortString(self, order: str, s: str) -> str:
+        def mergesort(string, max_val, dict_order):
+            if len(string) == 1:
+                return string
+            middle = len(string) // 2
+            left = mergesort(string[:middle], max_val, dict_order)
+            right = mergesort(string[middle:], max_val, dict_order)
+            result = []
+            i = j = 0
+            while i < len(left) or j < len(right):
+                if i == len(left):
+                    result.append(right[j])
+                    j += 1
+                    continue
+                if j == len(right):
+                    result.append(left[i])
+                    i += 1
+                    continue
+                first = dict_order.get(left[i], max_val)
+                second = dict_order.get(right[j], max_val)
+                if first <= second:
+                    result.append(left[i])
+                    i += 1
+                else:
+                    result.append(right[j])
+                    j += 1
+            return ''.join(result)
+        
+        dict_order = {c: i for i, c in enumerate(order)}
+        return mergesort(s, len(order) + 1, dict_order)

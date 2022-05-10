@@ -70,3 +70,47 @@ class Solution:
                     ans = max(ans, 1 + sum(area[_id] for _id in ids))
 
         return ans
+
+
+class Solution:
+    def largestIsland(self, grid: List[List[int]]) -> int:
+        def neighbors(row, col):
+            directions = {(row - 1, col), (row + 1, col),
+                          (row, col - 1), (row, col + 1)}
+            for r, c in directions:
+                if 0 <= r < len(grid) and 0 <= c < len(grid[0]) and grid[r][c] != 0:
+                    yield r, c
+        
+        def dfs(row, col, _id, visited):
+            stack = [(row, col)]
+            visited.add((row, col))
+            size = 0
+            while stack:
+                r, c = stack.pop()
+                size += 1
+                grid[r][c] = _id
+                for neighbor in neighbors(r, c):
+                    if neighbor not in visited:
+                        visited.add(neighbor)
+                        stack.append(neighbor)
+            return size
+        
+        result = 0; _id = 2
+        visited = set()
+        islands = dict()
+        for i in range(len(grid)):
+            for j in range(len(grid[i])):
+                if grid[i][j] == 1:
+                    size = dfs(i, j, _id, visited)
+                    result = max(size, result)
+                    islands[_id] = size
+                    _id += 1
+
+        for i in range(len(grid)):
+            for j in range(len(grid[i])):
+                if grid[i][j] == 0:
+                    seen = {grid[r][c] for r, c in neighbors(i, j)}
+                    size = 1 + sum((islands[_id] for _id in seen))
+                    result = max(size, result)
+        
+        return result

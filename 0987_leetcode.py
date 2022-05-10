@@ -77,3 +77,29 @@ class Solution:
             else:
                 res[col] = [val]
         return res.values()
+
+
+class Solution:
+    def verticalTraversal(self, root: Optional[TreeNode]) -> List[List[int]]:
+        def dfs(positions):
+            stack = [(0, 0, root)]
+            while stack:
+                col, row, node = stack.pop()
+                positions.append((col, row, node.val))
+                if node.left:
+                    stack.append((col - 1, row + 1, node.left))
+                if node.right:
+                    stack.append((col + 1, row + 1, node.right))
+        
+        positions = []
+        dfs(positions)
+        positions.sort()
+        traversal = {}
+        
+        for col, row, val in positions:
+            if col in traversal:
+                traversal[col].append(val)
+            else:
+                traversal[col] = [val]
+                
+        return traversal.values()

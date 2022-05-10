@@ -92,6 +92,7 @@ class Solution:
 class Solution:
     def isNumber(self, s: str) -> bool:
         seen_digit = seen_exponent = seen_dot = False
+
         for i, c in enumerate(s):
             if c.isdigit():
                 seen_digit = True
@@ -109,4 +110,32 @@ class Solution:
                 seen_dot = True
             else:
                 return False
-            return seen_digit
+
+        return seen_digit
+
+
+class Solution:
+    def isNumber(self, s: str) -> bool:
+        seen_digit = seen_sign = seen_exp = seen_dot = False
+
+        for c in s:
+            if c.isdigit():
+                seen_digit = True
+            elif c in {'+', '-'}:
+                if seen_digit or seen_sign or (seen_dot and not seen_exp):
+                    return False
+                seen_sign = True
+            elif c in {'e', 'E'}:
+                if not seen_digit or seen_exp:
+                    return False
+                seen_exp = True
+                seen_digit = False
+                seen_sign = False
+            elif c == '.':
+                if seen_dot or seen_exp:
+                    return False
+                seen_dot = True
+            else:
+                return False
+
+        return seen_digit

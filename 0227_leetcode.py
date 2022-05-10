@@ -40,10 +40,12 @@ class Solution:
     def calculate(self, s: str) -> int:
         curr_number = last_number = result = 0
         sign = '+'
-        for i in range(len(s[i])):
-            if s[i].isdigit():
-                curr_number = curr_number*10 + int(s[i])
-            if i == len(s) - 1 or (not s[i].isdigit() and s[i] == ' '):
+
+        for i, c in enumerate(s):
+            if c.isdigit():
+                curr_number = 10*curr_number + int(c)
+
+            if i == len(s) - 1 or c in {'+', '-', '*', '/'}:
                 if sign == '+':
                     result += last_number
                     last_number = curr_number
@@ -54,10 +56,9 @@ class Solution:
                     last_number = last_number * curr_number
                 else:
                     if last_number < 0:
-                        last_number = -(-last_number // curr_number)
+                        last_number = -((-last_number) // curr_number)
                     else:
                         last_number = last_number // curr_number
-                curr_number = 0
-                sign = s[i]
-        result += last_number
-        return result
+                sign = c; curr_number = 0
+
+        return result + last_number

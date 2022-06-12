@@ -38,7 +38,7 @@ All elements of candidates are distinct.
 
 
 class Solution:
-    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+    def combinationSum(self, candidates, target):
         def dp(curr_t, cache={}):
             if curr_t in cache:
                 return cache[curr_t] # set with combinations
@@ -57,3 +57,25 @@ class Solution:
             return cache[curr_t]
 
         return dp(target)
+
+
+import copy
+
+
+class Solution:
+    def combinationSum(self, candidates, target):
+        def backtrack(curr_target, start, curr_comb, output):
+            if curr_target == 0:
+                output.append(curr_comb.copy())
+                return
+            elif curr_target < 0:
+                return
+            else:
+                for i in range(start, len(candidates)):
+                    curr_comb.append(candidates[i])
+                    backtrack(curr_target - candidates[i], i, curr_comb, output)
+                    curr_comb.pop()
+
+        output = []
+        backtrack(target, 0, [], output)
+        return output

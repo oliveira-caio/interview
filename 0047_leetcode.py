@@ -34,3 +34,26 @@ class Solution:
                 list_perm = list(perm)
                 perms.add(tuple(list_perm[:i] + first + list_perm[i:]))
         return perms
+
+
+from collections import Counter
+import copy
+
+
+class Solution:
+    def permuteUnique(self, nums: List[int]) -> List[List[int]]:
+        def backtrack(curr_comb, output, counter):
+            if len(curr_comb) == len(nums):
+                output.append(curr_comb.copy())
+                return
+            for num in counter:
+                if counter[num] > 0:
+                    curr_comb.append(num)
+                    counter[num] -= 1
+                    backtrack(curr_comb, output, counter)
+                    counter[num] += 1
+                    curr_comb.pop()
+
+        output = []
+        backtrack([], output, Counter(nums))
+        return output

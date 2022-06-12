@@ -35,3 +35,22 @@ class Solution:
             for i in range(len(perm) + 1):
                 perms.append(perm[:i] + first + perm[i:])
         return perms
+
+
+import copy
+
+
+class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        def backtrack(curr_index, output):
+            if curr_index == len(nums):
+                output.append(nums.copy())
+                return
+            for i in range(curr_index, len(nums)):
+                nums[i], nums[curr_index] = nums[curr_index], nums[i]
+                backtrack(curr_index + 1, output)
+                nums[i], nums[curr_index] = nums[curr_index], nums[i]
+        
+        output = []
+        backtrack(0, output)
+        return output

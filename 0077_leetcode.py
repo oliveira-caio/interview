@@ -37,3 +37,22 @@ class Solution:
             combs.extend([comb + [j] for comb in combs if len(comb) < k])
             
         return [x for x in combs if len(x) == k]
+
+
+import copy
+
+
+class Solution:
+    def combine(self, n: int, k: int) -> List[List[int]]:
+        def backtrack(curr_comb, curr_index, output):
+            if len(curr_comb) == k:
+                output.append(curr_comb.copy())
+                return
+            for i in range(curr_index, n + 1):
+                curr_comb.append(i)
+                backtrack(curr_comb, i + 1, output)
+                curr_comb.pop()
+
+        output = []
+        backtrack([], 1, output)
+        return output
